@@ -4,6 +4,7 @@
 Nombre : Daniel Santiago Ramirez Chinchilla
 Trabajo:
 [My page](https://parcial-segundo-corte-santii08.vercel.app/ )
+https://parcial-segundo-corte-santii08.vercel.app/ 
 
 ### Instrucciones Generales
 - El examen consta de tres partes, cada una correspondiente a una ruta de una API REST desarrollada con Express, todas deben desarrollarse dentro de la misma aplicación.
@@ -31,7 +32,7 @@ Trabajo:
 Nombre : Daniel Santiago Ramirez Chinchilla
 Trabajo:
 [My page](https://parcial-segundo-corte-santii08.vercel.app/ )
-
+https://parcial-segundo-corte-santii08.vercel.app/ 
 
 ¡Buena suerte!
 
@@ -76,3 +77,4 @@ Lista de nombres de la clase:
 Nombre : Daniel Santiago Ramirez Chinchilla
 Trabajo:
 [My page](https://parcial-segundo-corte-santii08.vercel.app/ )
+https://parcial-segundo-corte-santii08.vercel.app/ 
