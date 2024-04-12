@@ -1,6 +1,10 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/KsHSEX27)
 ## Examen de Desarrollo Backend con Express
 
+Nombre : Daniel Santiago Ramirez Chinchilla
+Trabajo:
+[My page](https://parcial-segundo-corte-santii08.vercel.app/ )
+
 ### Instrucciones Generales
 - El examen consta de tres partes, cada una correspondiente a una ruta de una API REST desarrollada con Express, todas deben desarrollarse dentro de la misma aplicación.
 - Utiliza la versión más reciente de Express para desarrollar la API.
@@ -22,6 +26,12 @@
 - Cada ruta será evaluada en base a su funcionalidad y correcta implementación de acuerdo a las especificaciones.
 - Se valorará la claridad y organización del código, así como el uso adecuado de buenas prácticas de desarrollo.
 - Recuerde que la API en ningún momento debe romperse, así que realice un correcto manejo de errores y excepciones para evitar sucesos desafortunados.
+
+
+Nombre : Daniel Santiago Ramirez Chinchilla
+Trabajo:
+[My page](https://parcial-segundo-corte-santii08.vercel.app/ )
+
 
 ¡Buena suerte!
 
@@ -59,3 +69,10 @@ Lista de nombres de la clase:
 | TAMAYO LOPEZ, MARIA FERNANDA |
 | URREA LARA, DEIVID NICOLAS   |
 | AZCONA, ANDRÉS                |
+
+
+
+
+Nombre : Daniel Santiago Ramirez Chinchilla
+Trabajo:
+[My page](https://parcial-segundo-corte-santii08.vercel.app/ )
