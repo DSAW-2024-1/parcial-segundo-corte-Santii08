@@ -7,22 +7,22 @@ const port = 8080;
 app.use(express.json());
 
 app.post("/users", (req, res) => {
-  const { nombre, apellido, correo } = req.body;
-  const pais = req.body.pais || "Colombia";
-  const ciudad = req.body.ciudad || "Bogotá";
+  const { name, lastName, email } = req.body;
+  const city = req.body.pais || "Colombia";
+  const country = req.body.ciudad || "Bogotá";
 
-  if (!nombre || !apellido || !correo) {
+  if (!name || !lastName || !email) {
     res.status(400).send({
       message: "Completa tus datos necesarios: nombre, apellido, correo.!",
     });
   }
 
   const usuario = {
-    nombre,
-    apellido,
-    correo,
-    ciudad,
-    pais,
+    name,
+    lastName,
+    email,
+    city,
+    country,
   };
   res.json(usuario);
 });
@@ -60,6 +60,22 @@ const dbData = {
   ],
 };
 
+
+const ordenarUsuarios = (sort, count) => {
+  const elementos = dbData.usuarios.slice(0, count);
+
+  const usuariosOrdenados = [...elementos];
+
+  if (sort === "ASC") {
+    usuariosOrdenados.sort((a, b) => a.id - b.id);
+  } else {
+    usuariosOrdenados.sort((a, b) => b.id - a.id);
+  }
+
+  return { usuarios: usuariosOrdenados };
+};
+
+
 app.get("/users/:count", (req, res) => {
   const count = parseInt(req.params.count);
 
@@ -76,24 +92,6 @@ app.get("/users/:count", (req, res) => {
 
   res.json(nombres_usuarios);
 });
-
-
-
-const ordenarUsuarios = (sort, count) => {
-  const data = readData();
-
-  const elementos = data.usuarios.slice(0, count);
-
-  const usuariosOrdenados = [...elementos];
-
-  if (sort === "ASC") {
-    usuariosOrdenados.sort((a, b) => a.id - b.id);
-  } else {
-    usuariosOrdenados.sort((a, b) => b.id - a.id);
-  }
-
-  return { usuarios: usuariosOrdenados };
-};
 
 app.get("/coin/:coinName", (req, res) => {
   const { coinName } = req.params;
