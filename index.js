@@ -1,24 +1,20 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-//const fetch = require("node-fetch");
+
 const port = 8080;
-//const apiRouter = require('./routes/peticiones');
 
 app.use(express.json());
 
-//app.use('/api', apiRouter);
 app.post("/users", (req, res) => {
   const { nombre, apellido, correo } = req.body;
   const pais = req.body.pais || "Colombia";
   const ciudad = req.body.ciudad || "Bogotá";
 
   if (!nombre || !apellido || !correo) {
-    res
-      .status(400)
-      .send({
-        message: "Completa tus datos necesarios: nombre, apellido, correo.!",
-      });
+    res.status(400).send({
+      message: "Completa tus datos necesarios: nombre, apellido, correo.!",
+    });
   }
 
   const usuario = {
@@ -31,59 +27,46 @@ app.post("/users", (req, res) => {
   res.json(usuario);
 });
 
-//EndPoint retorna cantidad de usuarios ordenados
-app.get('/users/:count', (req, res) => {
-    
-  //valor de la variable count de la URL
+app.get("/users/:count", (req, res) => {
   const count = parseInt(req.params.count);
 
-  // Valido sort existe y es válida
   const sort = req.query.sort;
-  if (!sort || (sort !== 'ASC' && sort !== 'DESC')) {
-      return res.status(400).json({ error: 'La variable sort debe ser ASC o DESC.' });
+  if (!sort || (sort !== "ASC" && sort !== "DESC")) {
+    return res
+      .status(400)
+      .json({ error: "La variable sort debe ser ASC o DESC." });
   }
 
-  //Ordenar usuarios
-  const jsonData = ordenarUsuarios(sort,count);
-  //const nombrejsonData = jsonData.usuarios.nombre
-  const nombres_usuarios = jsonData.usuarios.map(usuario => usuario.nombre);
-  // Validaciones son exitosas, enviar una respuesta
+  const jsonData = ordenarUsuarios(sort, count);
+
+  const nombres_usuarios = jsonData.usuarios.map((usuario) => usuario.nombre);
+
   res.json(nombres_usuarios);
 });
 
-
-//Funcion lee archivo Json
 const readData = () => {
-  try{
-      const data = fs.readFileSync("./db.json")
-      return JSON.parse(data);
-      //console.log(JSON.parse(data));
-  }catch(error){
-      console.log(error);
+  try {
+    const data = fs.readFileSync("./db.json");
+    return JSON.parse(data);
+  } catch (error) {
+    console.log(error);
   }
-}
-const ordenarUsuarios = (sort,count) => {
-
+};
+const ordenarUsuarios = (sort, count) => {
   const data = readData();
 
-  // Obtener los primeros "cont" elementos del JSON
   const elementos = data.usuarios.slice(0, count);
 
-  // Ordenar los usuarios según el parámetro sort
   const usuariosOrdenados = [...elementos];
 
-  if (sort === 'ASC') {
-      usuariosOrdenados.sort((a, b) => a.id - b.id);
+  if (sort === "ASC") {
+    usuariosOrdenados.sort((a, b) => a.id - b.id);
   } else {
-      usuariosOrdenados.sort((a, b) => b.id - a.id);
+    usuariosOrdenados.sort((a, b) => b.id - a.id);
   }
 
-  // Crear y retornar el objeto JSON con los usuarios ordenados
   return { usuarios: usuariosOrdenados };
-}
-
-
-
+};
 
 app.get("/coin/:coinName", (req, res) => {
   const { coinName } = req.params;
