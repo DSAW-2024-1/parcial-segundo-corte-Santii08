@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fs = require("fs");
 //const fetch = require("node-fetch");
 const port = 8080;
 //const apiRouter = require('./routes/peticiones');
@@ -30,25 +31,60 @@ app.post("/users", (req, res) => {
   res.json(usuario);
 });
 
+//EndPoint retorna cantidad de usuarios ordenados
 app.get('/users/:count', (req, res) => {
     
-    //valor de la variable count de la URL
-    const count = req.params.count;
+  //valor de la variable count de la URL
+  const count = parseInt(req.params.count);
 
-    // valido si count es numérico
-    if (isNaN(count)) {
-        return res.status(400).json({ error: 'La variable count debe ser numérica.' });
-    }
+  // Valido sort existe y es válida
+  const sort = req.query.sort;
+  if (!sort || (sort !== 'ASC' && sort !== 'DESC')) {
+      return res.status(400).json({ error: 'La variable sort debe ser ASC o DESC.' });
+  }
 
-    // Valido sort existe y es válida
-    const sort = req.query.sort;
-    if (!sort || (sort !== 'ASC' && sort !== 'DESC')) {
-        return res.status(400).json({ error: 'La variable sort debe ser ASC o DESC.' });
-    }
+  //Ordenar usuarios
+  const jsonData = ordenarUsuarios(sort,count);
+  //const nombrejsonData = jsonData.usuarios.nombre
+  const nombres_usuarios = jsonData.usuarios.map(usuario => usuario.nombre);
+  // Validaciones son exitosas, enviar una respuesta
+  res.json(nombres_usuarios);
+});
 
-    // Validaciones son exitosas, enviar una respuesta
-    res.json({ count,sort});
-}); 
+
+//Funcion lee archivo Json
+const readData = () => {
+  try{
+      const data = fs.readFileSync("./db.json")
+      return JSON.parse(data);
+      //console.log(JSON.parse(data));
+  }catch(error){
+      console.log(error);
+  }
+}
+const ordenarUsuarios = (sort,count) => {
+
+  const data = readData();
+
+  // Obtener los primeros "cont" elementos del JSON
+  const elementos = data.usuarios.slice(0, count);
+
+  // Ordenar los usuarios según el parámetro sort
+  const usuariosOrdenados = [...elementos];
+
+  if (sort === 'ASC') {
+      usuariosOrdenados.sort((a, b) => a.id - b.id);
+  } else {
+      usuariosOrdenados.sort((a, b) => b.id - a.id);
+  }
+
+  // Crear y retornar el objeto JSON con los usuarios ordenados
+  return { usuarios: usuariosOrdenados };
+}
+
+
+
+
 app.get("/coin/:coinName", (req, res) => {
   const { coinName } = req.params;
   fetch(`https://api.coincap.io/v2/assets/${coinName}`)
